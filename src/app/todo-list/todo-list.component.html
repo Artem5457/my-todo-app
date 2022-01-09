@@ -1,0 +1,21 @@
+<section class="main">
+  <input
+    type="checkbox"
+    id="toggle-all"
+    (change)="toggleAllTodos()"
+    class="toggle-all"
+  >
+
+  <label for="toggle-all" style="cursor: pointer;">
+    Mark all as complete
+  </label>
+
+  <ul class="todo-list">
+    <ng-container *ngFor="let todo of todos">
+      <app-todo-item
+        [todo]="todo"
+        (onRemove)="deleteTodo($event)"
+      ></app-todo-item>
+    </ng-container>
+  </ul>
+</section> 

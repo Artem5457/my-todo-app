@@ -1,0 +1,19 @@
+<li
+  (dblclick)="changeMode()"
+  [ngClass]="{
+    completed: todo.completed,
+    editing: editMode
+  }"
+>
+  <div class="view">
+    <input type="checkbox" class="toggle" [checked]="todo.completed" />
+
+    <label>
+      {{ todo.title }}
+    </label>
+
+    <button type="button" class="destroy" (click)="removeItem()"></button>
+  </div>
+
+  <input type="text" class="edit" />
+</li>

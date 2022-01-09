@@ -1,0 +1,8 @@
+<section class="todoapp">
+  <app-todo-form (onAdd)="addTodo($event)"></app-todo-form>
+
+  <app-todo-list
+    [todos]="todos"
+  ></app-todo-list>
+
+</section>
