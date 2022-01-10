@@ -7,7 +7,7 @@ import { Todo } from '../interface';
   styleUrls: ['./todo-form.component.css']
 })
 export class TodoFormComponent implements OnInit {
-  @Output() onAdd: EventEmitter<Todo> = new EventEmitter<Todo>();
+  @Output() addTodo: EventEmitter<Todo> = new EventEmitter<Todo>();
   inputValue: string = '';
 
   constructor() { }
@@ -24,7 +24,7 @@ export class TodoFormComponent implements OnInit {
         completed: false
       }
 
-      this.onAdd.emit(newTodo);
+      this.addTodo.emit(newTodo);
     }
 
     this.inputValue = '';

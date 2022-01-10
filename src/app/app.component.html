@@ -1,8 +1,53 @@
 <section class="todoapp">
-  <app-todo-form (onAdd)="addTodo($event)"></app-todo-form>
+  <app-todo-form (addTodo)="addTodo($event)"></app-todo-form>
 
   <app-todo-list
     [todos]="todos"
-  ></app-todo-list>
+    (sendTodos)="updateTodos($event)"
+  >
+    <ng-container *ngFor="let todo of todos">
+      <app-todo-item
+        [todo]="todo"
+        (onRemove)="deleteTodo($event)"
+        (onChange)="changeStatus($event)"
+        (onChangeTitle)="changeTitle($event)"
+      ></app-todo-item>
+    </ng-container>
+  </app-todo-list>
+
+  <footer class="footer">
+    <span class="todo-count" *ngIf="notCompletedTodos.length > 0">
+      {{ notCompletedTodos.length }} items left
+    </span>
+
+    <ul class="filters">
+      <li>
+        <a (click)="onFilterChange('all')" class="selected" style="cursor: pointer">
+          All
+        </a>
+      </li>
+    
+      <li>
+        <a (click)="onFilterChange('active')" style="cursor: pointer">
+          Active
+        </a>
+      </li>
+    
+      <li>
+        <a (click)="onFilterChange('completed')" style="cursor: pointer">
+          Completed
+        </a>
+      </li>
+    </ul>
+
+    <button
+      type="button"
+      class="clear-completed"
+      (click)="completedRemove()"
+      *ngIf="buttonStatus"
+    >
+      Clear completed
+    </button>
+  </footer>
 
 </section>

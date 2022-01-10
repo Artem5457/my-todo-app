@@ -11,11 +11,6 @@
   </label>
 
   <ul class="todo-list">
-    <ng-container *ngFor="let todo of todos">
-      <app-todo-item
-        [todo]="todo"
-        (onRemove)="deleteTodo($event)"
-      ></app-todo-item>
-    </ng-container>
+    <ng-content></ng-content>
   </ul>
 </section> 

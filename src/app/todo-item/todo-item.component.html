@@ -6,7 +6,12 @@
   }"
 >
   <div class="view">
-    <input type="checkbox" class="toggle" [checked]="todo.completed" />
+    <input 
+      type="checkbox" 
+      class="toggle" 
+      [checked]="todo.completed" 
+      (change)="completeChange(todo)"
+    />
 
     <label>
       {{ todo.title }}
@@ -15,5 +20,5 @@
     <button type="button" class="destroy" (click)="removeItem()"></button>
   </div>
 
-  <input type="text" class="edit" />
+  <input type="text" class="edit" [(ngModel)]="editTitle" (keyup)="onKeyUp($event)" />
 </li>

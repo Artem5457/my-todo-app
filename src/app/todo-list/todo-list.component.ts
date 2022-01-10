@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { Todo } from '../interface';
 
 @Component({
@@ -7,19 +7,18 @@ import { Todo } from '../interface';
   styleUrls: ['./todo-list.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements DoCheck {
   @Input() todos!: Todo[];
+  @Output() sendTodos: EventEmitter<Todo[]> = new EventEmitter<Todo[]>();
   allTodosStatus: boolean = false;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngDoCheck(): void {
+    // console.log('Todo-list: ', this.todos);
   }
 
-  deleteTodo(todo: Todo) {
-    this.todos = this.todos.filter(item => todo.id !== item.id);
-  }
-
+  //  Спросить за правильное изменение todos
   toggleAllTodos() {
     this.allTodosStatus = !this.allTodosStatus;
     this.todos = this.todos.map(item => {
@@ -28,6 +27,7 @@ export class TodoListComponent implements OnInit {
         completed: this.allTodosStatus
       }
     });
-  }
 
+    this.sendTodos.emit(this.todos);
+  }
 }
