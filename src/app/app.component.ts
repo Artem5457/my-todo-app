@@ -1,14 +1,15 @@
 import { Component, DoCheck } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Todo } from './interface';
+import { LocalStorageService } from './localStorage.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  todos: Todo[] = [];
+export class AppComponent implements DoCheck {
+  todos: Todo[] = this.locStorage.getLocalStorage('todos');
   notCompletedTodos: Todo[] = this.todos.filter(todo => !todo.completed);
   // visibleTodos!: Todo[];
   buttonStatus: boolean = false;
@@ -17,7 +18,8 @@ export class AppComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private locStorage: LocalStorageService
   ) { }
 
   ngDoCheck() {
@@ -40,7 +42,7 @@ export class AppComponent {
     // My second trial
     // this.filter = value;
 
-    // this.visibleTodos = this.filter === 'all' 
+    // this.visibleTodos = this.filter === 'all'
     //   ? this.todos
     //   : this.todos.filter(item => {
     //     if (this.filter === 'active') {
@@ -54,18 +56,22 @@ export class AppComponent {
   // Next methods transform list
   addTodo(newTodo: Todo) {
     this.todos.push(newTodo);
+    this.locStorage.setLocalStorage('todos', this.todos);
   }
 
   updateTodos(todos: Todo[]) {
     this.todos = todos;
+    this.locStorage.setLocalStorage('todos', this.todos);
   }
 
   completedRemove() {
     this.todos = this.todos.filter(item => !item.completed);
+    this.locStorage.setLocalStorage('todos', this.todos);
   }
 
   deleteTodo(todo: Todo) {
     this.todos = this.todos.filter(item => todo.id !== item.id);
+    this.locStorage.setLocalStorage('todos', this.todos);
   }
 
   changeStatus(todo: Todo) {
@@ -79,6 +85,8 @@ export class AppComponent {
 
       return item;
     });
+    
+    this.locStorage.setLocalStorage('todos', this.todos);
   }
 
   changeTitle(todo: Todo) {
@@ -91,5 +99,7 @@ export class AppComponent {
 
       return item;
     });
+
+    this.locStorage.setLocalStorage('todos', this.todos);
   }
 }
