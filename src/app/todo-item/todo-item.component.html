@@ -5,7 +5,7 @@
     editing: editMode
   }"
 >
-  <div class="view">
+  <div *ngIf="!editMode else editModeTpl" class="view">
     <input 
       type="checkbox" 
       class="toggle" 
@@ -20,5 +20,7 @@
     <button type="button" class="destroy" (click)="removeItem()"></button>
   </div>
 
-  <input type="text" class="edit" [(ngModel)]="editTitle" (keyup)="onKeyUp($event)" />
+  <ng-template #editModeTpl>
+    <input type="text" class="edit" [(ngModel)]="editTitle" (keyup)="onKeyUp($event)" />
+  </ng-template>
 </li>

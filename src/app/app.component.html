@@ -3,9 +3,9 @@
 
   <app-todo-list
     [todos]="todos"
-    (sendTodos)="updateTodos($event)"
+    (sendToggleAllStatus)="updateTodos($event)"
   >
-    <ng-container *ngFor="let todo of todos">
+    <ng-container *ngFor="let todo of todoFilter()">
       <app-todo-item
         [todo]="todo"
         (onRemove)="deleteTodo($event)"
@@ -20,7 +20,7 @@
       {{ notCompletedTodos.length }} items left
     </span>
 
-    <!-- <ul class="filters">
+    <ul class="filters">
       <li>
         <a (click)="onFilterChange('all')" class="selected" style="cursor: pointer">
           All
@@ -38,7 +38,7 @@
           Completed
         </a>
       </li>
-    </ul> -->
+    </ul>
 
     <button
       type="button"

@@ -9,7 +9,7 @@ import { Todo } from '../interface';
 })
 export class TodoListComponent implements DoCheck {
   @Input() todos!: Todo[];
-  @Output() sendTodos: EventEmitter<Todo[]> = new EventEmitter<Todo[]>();
+  @Output() sendToggleAllStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
   allTodosStatus: boolean = false;
 
   constructor() { }
@@ -21,13 +21,7 @@ export class TodoListComponent implements DoCheck {
   //  Спросить за правильное изменение todos
   toggleAllTodos() {
     this.allTodosStatus = !this.allTodosStatus;
-    this.todos = this.todos.map(item => {
-      return {
-        ...item,
-        completed: this.allTodosStatus
-      }
-    });
-
-    this.sendTodos.emit(this.todos);
+    
+    this.sendToggleAllStatus.emit(this.allTodosStatus);
   }
 }
