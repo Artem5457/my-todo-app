@@ -13,6 +13,16 @@ export class TodoFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('ngOnInit');
+    this.ngOnInit1({
+      id: 1,
+      title: 'history',
+      completed: false
+    });
+  }
+
+  ngOnInit1(a: any): void {
+    console.log('ngOnInit1', a);
   }
 
   onSubmit(): void {

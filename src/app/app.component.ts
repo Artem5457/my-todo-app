@@ -45,7 +45,6 @@ export class AppComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     console.log('Todos: ', this.todos);
-    // console.log('visibleTodos: ', this.visibleTodos);
     this.notCompletedTodos = this.todos.filter(todo => !todo.completed);
     this.buttonStatus = this.todos.some(el => el.completed);
   }
@@ -95,7 +94,7 @@ export class AppComponent implements OnInit, DoCheck {
 
       return item;
     });
-    
+
     this.locStorage.setLocalStorage('todos', this.todos);
   }
 

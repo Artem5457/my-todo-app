@@ -11,24 +11,28 @@ export class TodoItemComponent implements OnInit {
   @Output() onRemove: EventEmitter<Todo> = new EventEmitter<Todo>();
   @Output() onChange: EventEmitter<Todo> = new EventEmitter<Todo>();
   @Output() onChangeTitle: EventEmitter<Todo> = new EventEmitter<Todo>();
-  
+
   editMode: boolean = false;
   editTitle: string = this.todo === undefined ? '' : this.todo.title;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.ngOnInit1(true);
+  }
 
+  ngOnInit1(a: boolean): void {
+    console.log('ngOnInit1');
   }
 
   changeMode() {
     this.editMode = true;
   }
 
-  removeItem() {
-    this.onRemove.emit(this.todo);
+  removeItem(todo: Todo) {
+    this.onRemove.emit(todo);
   }
-  
+
   handleTodoEdit(editTitle: string) {
     this.todo = {
       ...this.todo,

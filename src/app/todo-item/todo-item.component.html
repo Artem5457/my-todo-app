@@ -6,10 +6,10 @@
   }"
 >
   <div *ngIf="!editMode else editModeTpl" class="view">
-    <input 
-      type="checkbox" 
-      class="toggle" 
-      [checked]="todo.completed" 
+    <input
+      type="checkbox"
+      class="toggle"
+      [checked]="todo.completed"
       (change)="completeChange(todo)"
     />
 
@@ -17,7 +17,7 @@
       {{ todo.title }}
     </label>
 
-    <button type="button" class="destroy" (click)="removeItem()"></button>
+    <button type="button" class="destroy" (click)="removeItem(todo)"></button>
   </div>
 
   <ng-template #editModeTpl>
