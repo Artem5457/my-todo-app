@@ -1,17 +1,18 @@
 import { TodoItemComponent } from "./todo-item.component";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
+import {FormsModule} from "@angular/forms";
 
 describe('TodoItemComponent', () => {
   let component: TodoItemComponent;
   let fixture: ComponentFixture<TodoItemComponent>;
-  let ngOnInit1eSpy
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         TodoItemComponent
-      ]
+      ],
+      imports: [FormsModule]
     }).compileComponents();
   });
 
@@ -19,20 +20,19 @@ describe('TodoItemComponent', () => {
     fixture = TestBed.createComponent(TodoItemComponent);
     component = fixture.componentInstance;
 
-    component.todo = {
+     component.todo = {
       id: 1,
       title: 'history',
       completed: false
     };
-    ngOnInit1eSpy = spyOn(component, 'ngOnInit1');
 
     fixture.detectChanges();
   });
 
   it('create element', () => {
-    console.log('create element');
     expect(component).toBeTruthy();
   });
+
 
   it('input value was drawn', () => {
     component.todo = {
@@ -48,23 +48,20 @@ describe('TodoItemComponent', () => {
   });
 
   it('emits onRemove event on remove', () => {
-    const onRemoveSpy = spyOn(component, 'removeItem');
+    const onRemoveSpy = spyOn(component.onRemove, 'emit');
 
-    fixture.debugElement.query(By.css('.destroy')).triggerEventHandler('click', component.todo);
-    fixture.detectChanges();
+    fixture.nativeElement.querySelector('.destroy').click();
 
     // You have to apply this method
     expect(onRemoveSpy).toHaveBeenCalledOnceWith(component.todo);
   });
 
   it('emits onChange event on change', () => {
+    const onChangeSpy = spyOn(component.onChange, 'emit');
 
-    const onChangeSpy = spyOn(component, 'completeChange');
+    fixture.nativeElement.querySelector('.toggle').click();
 
-    fixture.debugElement.query(By.css('.toggle')).triggerEventHandler('change', component.todo);
-    fixture.detectChanges();
-
-    expect(onChangeSpy).toHaveBeenCalledOnceWith(component.todo)
+    expect(onChangeSpy).toHaveBeenCalledOnceWith( component.todo);
   });
 
   it('change editMode on click', () => {
@@ -81,18 +78,18 @@ describe('TodoItemComponent', () => {
 
   // ----------------------------------------------------------------------------------------------
   it('change editTitle and emit it by click on key', () => {
-    const onChangeTitleSpy = spyOn(component, 'onChangeTitle');
-    // fixture.debugElement.query(By.css('li')).triggerEventHandler('dblclick', null);
-    // fixture.detectChanges();
-    //
-    // // const title = 'Ukraine';
-    // fixture.debugElement.query(By.css('.edit')).triggerEventHandler('keyup', {
-    //   button: 13
-    // });
+    const onChangeTitleSpy = spyOn(component.onChangeTitle, 'emit');
+    component.changeMode();
+    fixture.detectChanges();
+    component.editTitle = '122'
 
-    // expect(true).toBeTruthy()
+    fixture.debugElement.query(By.css('.edit')).triggerEventHandler('keyup', {
+      keyCode: 13
+    });
 
-    expect(ngOnInit1eSpy).toHaveBeenCalledOnceWith(component.todo);
+    fixture.detectChanges();
+
+    expect(onChangeTitleSpy).toHaveBeenCalledOnceWith({ id: 1, title: '122', completed: false });
   });
 })
 

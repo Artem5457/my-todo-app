@@ -68,7 +68,7 @@ export class AppComponent implements OnInit, DoCheck {
         completed: allTodosStatus
       }
     });
-;
+
     this.locStorage.setLocalStorage('todos', this.todos);
   }
 

@@ -18,10 +18,16 @@ export class TodoItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.ngOnInit1(true);
+    console.log('ngOnInit');
+
+    this.ngOnInit1({
+      id: 1,
+      title: 'history',
+      completed: false
+    });
   }
 
-  ngOnInit1(a: boolean): void {
+  ngOnInit1(a: any): void {
     console.log('ngOnInit1');
   }
 
@@ -43,9 +49,15 @@ export class TodoItemComponent implements OnInit {
   }
 
   onKeyUp(event: KeyboardEvent) {
+    console.log('Start', event);
+    console.log('this.editTitle', this.editTitle);
     if (this.editTitle.length > 0 && event.keyCode === 13) {
+      console.log('Clicked Enter');
       this.handleTodoEdit(this.editTitle);
+      console.log('HandleTodoEdit: ', this.todo);
       this.editMode = false;
+
+      console.log('editMode: ', this.editMode);
     } else if (event.keyCode === 27) {
       this.editMode = false;
     }
