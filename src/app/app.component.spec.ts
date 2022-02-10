@@ -9,6 +9,10 @@ import {Todo} from "./interface";
   selector: 'app-todo-list',
   template: '',
 })
+
+// 1) Write all classes here with Outputs;
+// 2) Get this element by tag-name;
+
 export class TodoListComponent {
   @Output() sendToggleAllStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
   allTodosStatus: boolean = false;}
