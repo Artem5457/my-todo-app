@@ -49,15 +49,9 @@ export class TodoItemComponent implements OnInit {
   }
 
   onKeyUp(event: KeyboardEvent) {
-    console.log('Start', event);
-    console.log('this.editTitle', this.editTitle);
     if (this.editTitle.length > 0 && event.keyCode === 13) {
-      console.log('Clicked Enter');
       this.handleTodoEdit(this.editTitle);
-      console.log('HandleTodoEdit: ', this.todo);
       this.editMode = false;
-
-      console.log('editMode: ', this.editMode);
     } else if (event.keyCode === 27) {
       this.editMode = false;
     }
